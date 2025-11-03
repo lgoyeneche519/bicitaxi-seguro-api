@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "9ea978c4-84ed-4c12-9f6a-b510cce24194",
+		"name": "BicitaxiSeguro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49724175",
+		"_collection_link": "https://lgoyeneche519-7194675.postman.co/workspace/LEYLA-CRISTINA-GOYENECHE-GORDIL~95ffd788-c499-40d8-886b-d0d988b8daba/collection/49724175-9ea978c4-84ed-4c12-9f6a-b510cce24194?action=share&source=collection_link&creator=49724175"
+	},
+	"item": [
+		{
+			"name": "Probar Health Check",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar un vehículo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"placa\": \"ABC123\",\r\n  \"modelo\": \"Bicitaxi 2024\",\r\n  \"revisionVence\": \"2025-12-31\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/vehicles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"vehicles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar vehículos",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Validar QR de vehículo",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Cotizar viaje",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"origen\": { \"lat\": 4.65, \"lon\": -74.1 },\r\n  \"destino\": { \"lat\": 4.67, \"lon\": -74.05 },\r\n  \"distanciaKm\": 3.2,\r\n  \"duracionMin\": 12\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/trips/quote",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"trips",
+						"quote"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Viaje",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pasajeroId\": \"USER001\",\r\n    \"origen\": {\r\n        \"lat\": 4.65,\r\n        \"lon\": -74.1\r\n    },\r\n    \"destino\": {\r\n        \"lat\": 4.67,\r\n        \"lon\": -74.05\r\n    },\r\n    \"distanciaKm\": 3.2,\r\n    \"duracionMin\": 12\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/trips",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"trips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reportar Incidente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tipo\": \"ACCIDENTE\",\r\n    \"descripcion\": \"Caída leve\",\r\n    \"viajeId\": \"ID_DEL_VIAJE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/incidents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"incidents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Incidentes",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
