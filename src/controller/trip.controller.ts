@@ -1,18 +1,41 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction  } from "express";
 import { db, id } from "../domain/store";
 import { CotizarViajeDTO, CrearViajeDTO, Viaje } from "../domain/models";
 import { isPoint } from "../utils/validation";
 import { calcularTarifa } from "../services/pricing.service";
 
-export const cotizarViaje = (req: Request, res: Response) => {
-  const dto = req.body as CotizarViajeDTO;
-  if (!isPoint(dto?.origen) || !isPoint(dto?.destino) || typeof dto?.distanciaKm !== "number" || typeof dto?.duracionMin !== "number") {
-    return res.status(400).json({ error: "Datos inválidos para cotización" });
+export async function cotizarViaje(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { distanciaKm, tiempoMin } = req.body;
+
+    const base = 2000;        // tarifa base
+    const porKm = 800;        // por km
+    const porMin = 150;       // por minuto
+
+    const tarifa = base + distanciaKm * porKm + tiempoMin * porMin;
+
+    res.json({
+      ok: true,
+      viajeId: 35938868,
+      distanciaKm,
+      tiempoMin,
+      tarifa,
+      conductor: {
+        nombre: "Conductor #e03c0e",
+        calificacion: 5.0,
+        viajes: 1,
+      },
+      vehiculo: {
+        placa: "DEMO-001",
+        modelo: "Nacional Bicitaxi Estándar (2024)",
+        estado: "Activo",
+        licencia: "LIC-123456",
+      },
+    });
+  } catch (err) {
+    next(err);
   }
-  // TODO: validar geocercas (placeholder)
-  const { precio, etaMin } = calcularTarifa(dto.distanciaKm, dto.duracionMin);
-  res.json({ precio, etaMin });
-};
+}
 
 export const crearViaje = (req: Request, res: Response) => {
   const dto = req.body as CrearViajeDTO;
@@ -50,3 +73,4 @@ export const obtenerViaje = (req: Request, res: Response) => {
   if (!v) return res.status(404).json({ error: "Viaje no encontrado" });
   res.json(v);
 };
+
